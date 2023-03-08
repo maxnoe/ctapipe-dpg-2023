@@ -73,7 +73,6 @@ def plot_roc(events):
     grouped = events[mask].group_by(np.digitize(events[mask][reco_energy], reco_energy_bins))
     
     for idx, group in zip(grouped.groups.keys, grouped.groups):
-        print(idx)
         # skip under / overflow
         ax.legend()
         if idx == 0 or idx == (n_bins + 1):
@@ -99,7 +98,7 @@ def plot_roc(events):
         label = r'{:.0f} $\leq \hat{{E}} < $ {:.0f}'.format(
             e_min, e_max
         )
-        ax.plot(fpr, tpr, label=label, color=str(0.1 + idx * 0.8 / n_bins))
+        ax.plot(fpr, tpr, label=label, color=str(0.3 + (idx + 1) * 0.7 / n_bins))
 
     ax.legend(loc='lower right')
     ax.set(
