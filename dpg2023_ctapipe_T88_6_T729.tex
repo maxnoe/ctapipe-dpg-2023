@@ -1,0 +1,42 @@
+% This example is meant to be compiled with lualatex or xelatex
+% The theme itself also supports pdflatex
+\PassOptionsToPackage{unicode}{hyperref}
+\documentclass[aspectratio=1610, 9pt]{beamer}
+
+% Load packages you need here
+\usepackage[american]{babel}
+
+\usepackage[autostyle]{csquotes}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\usepackage{hyperref}
+\usepackage{bookmark}
+
+% load the theme after all packages
+
+\usetheme[dark]{tudo}
+
+% Put settings here, like
+\unimathsetup{
+  math-style=ISO,
+  bold-style=ISO,
+  nabla=upright,
+  partial=upright,
+  mathrm=sym,
+}
+
+\title{ctapipe -- Prototype Open Event Reconstruction Pipeline for the Cherenkov Telescope Array}
+\author[M.~Linhoff]{\emph{Maximilian Linhoff}, Lukas Nickel, Noah Biederbeck for the CTA Consortium and Observatory}
+\institute[TU Dortmund]{Astroparticle Physics}
+\titlegraphic{\includegraphics[height=0.4\textheight]{ctapipe-logo-dark.pdf}}
+
+
+\begin{document}
+
+\maketitle
+
+\end{document}
