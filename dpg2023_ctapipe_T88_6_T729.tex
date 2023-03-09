@@ -12,6 +12,20 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
+\usepackage{xfrac}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage[
+  separate-uncertainty=true,
+  per-mode=symbol-or-fraction,
+]{siunitx}
+
+% nice tables
+\usepackage{tabularray}
+
+% colors
+\usepackage{xcolor}
 
 \usepackage{hyperref}
 \usepackage{bookmark}
@@ -38,5 +52,9 @@
 \begin{document}
 
 \maketitle
+
+\begin{frame}
+  \input{datalevels.tex}
+\end{frame}
 
 \end{document}

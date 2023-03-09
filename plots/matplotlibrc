@@ -38,9 +38,9 @@ grid.color: white
 
 figure.facecolor: 3a3d41
 figure.edgecolor: 3a3d41
+figure.dpi: 300
+savefig.transparent: True
 
-savefig.facecolor: 3a3d41
-savefig.edgecolor: 3a3d41
 
 ### Boxplots
 boxplot.boxprops.color: white

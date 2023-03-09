@@ -4,9 +4,7 @@ DATADIR=data
 URL=https://zenodo.org/record/7298569/files/
 
 
-all: \
-	${OUTDIR}/gamma_test.dl2.h5 \
-	${OUTDIR}/proton_test.dl2.h5 \
+all: build/dpg2023_ctapipe_T88_6_T729.pdf
 
 gammas_train_en = $(shell seq -f %02.0f 0 10)
 gammas_train_clf = $(shell seq -f %02.0f 11 22)
@@ -20,8 +18,20 @@ gamma_test_files = $(addprefix ${INDIR}/gamma-diffuse_with_images_, $(addsuffix 
 proton_train_files = $(addprefix ${INDIR}/proton_with_images_, $(addsuffix .dl2.h5, ${protons_train}))
 proton_test_files = $(addprefix ${INDIR}/proton_with_images_, $(addsuffix .dl2.h5, ${protons_test}))
 
+
 download: ${gamma_files} ${proton_files}
 merge: ${DATADIR}/gamma_test.dl2.h5 ${DATADIR}/gamma_train_en.dl2.h5 ${DATADIR}/gamma_train_clf.dl2.h5 ${DATADIR}/proton_train.dl2.h5 ${DATADIR}/proton_test.dl2.h5
+plots: build/r0.pdf \
+	build/r1.pdf \
+	build/dl0.pdf \
+	build/dl1a.pdf \
+	build/dl1a_clean.pdf
+
+build/dpg2023_ctapipe_T88_6_T729.pdf: plots
+build/dpg2023_ctapipe_T88_6_T729.pdf: FORCE
+	TEXINPUTS=tudobeamertheme: latexmk dpg2023_ctapipe_T88_6_T729.tex
+
+
 
 ${INDIR}/%.dl2.h5 : | ${INDIR}
 	curl -fLo $@ ${URL}/$*.dl2.h5?download=1
@@ -153,6 +163,13 @@ build/plots/%_half.pdf: plots/plot_%.py plots/matplotlibrc_half plots/header-mat
 	python $<
 
 
+build/r1.pdf build/dl0.pdf build/dl1a.pdf build/dl1a_clean.pdf: build/r0.pdf
+
+build/r0.pdf: plots/matplotlibrc plots/plot_datalevels.py | build
+	MATPLOTLIBRC=plots/matplotlibrc TEXINPUTS=$$(pwd)/plots: python plots/plot_datalevels.py
+
+
+
 ${OUTDIR}:
 	mkdir -p $@
 
@@ -166,5 +183,7 @@ ${DATADIR}:
 clean:
 	rm -rf ${OUTDIR}
 
-.PHONY: all clean
+FORCE:
+
+.PHONY: all clean FORCE
 .DELETE_ON_ERROR:

@@ -1,0 +1,10 @@
+name: ctapipe-dpg-2023
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - ctapipe=0.18
+  - numpy
+  - matplotlib=3.7
+  - astropy=5.2
+  - scikit-learn
