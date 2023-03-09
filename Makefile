@@ -142,6 +142,17 @@ ${OUTDIR}/proton_train.dl2.h5: data/proton_train.dl2.h5 ${OUTDIR}/energy.pkl
 		--log-level=INFO
 
 
+build/plots/%.pdf: plots/plot_%.py plots/matplotlibrc plots/header-matplotlib.tex
+	MATPLOTLIBRC=plots/matplotlibrc \
+	TEXINPUTS=$$(pwd)/plots: \
+	python $<
+
+build/plots/%_half.pdf: plots/plot_%.py plots/matplotlibrc_half plots/header-matplotlib.tex
+	MATPLOTLIBRC=plots/matplotlibrc_half \
+	TEXINPUTS=$$(pwd)/plots: \
+	python $<
+
+
 ${OUTDIR}:
 	mkdir -p $@
 

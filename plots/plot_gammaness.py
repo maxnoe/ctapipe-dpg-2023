@@ -18,7 +18,7 @@ opts = dict(load_dl2=True, load_simulated=True, load_dl1_parameters=False)
 gamma_path = "./build/gamma_test.dl2.h5"
 proton_path = "./build/proton_test.dl2.h5"
 
-particle_ids = {"Gammas": 0, "Proton": 101}
+particle_ids = {"Protons": 101, "Gammas": 0}
 
 
 def load_data():
@@ -45,7 +45,7 @@ def load_data():
 def plot_gammaness(events):
     fig, ax = plt.subplots(layout="constrained")
 
-    hist_opts = dict(bins=101, range=[0, 1], histtype='step', density=True)
+    hist_opts = dict(bins=101, range=[0, 1], histtype='step')
 
     key = "gammaness"
     for label, particle_id in particle_ids.items():
@@ -53,7 +53,7 @@ def plot_gammaness(events):
         plt.hist(events[gammaness][mask], **hist_opts, label=label)
 
     ax.set_xlabel(key)
-    ax.legend()
+    ax.legend(ncol=2, loc='upper center')
 
     fig.savefig("build/plots/gammaness.pdf")
 
@@ -63,12 +63,13 @@ def plot_gammaness_energy(events):
     reco_energy_bins = np.geomspace(10 * u.GeV, 100 * u.TeV, n_bins + 1)
 
     fig, axs = plt.subplots(
-        len(reco_energy_bins) - 1, 1,
+        2, 2,
         sharex=True,
         layout="constrained"
     )
+    axs = axs.ravel()
 
-    hist_opts = dict(bins=101, range=[0, 1], histtype='step', density=True)
+    hist_opts = dict(bins=51, range=[0, 1], histtype='step')
 
     key = "gammaness"
 
@@ -86,11 +87,22 @@ def plot_gammaness_energy(events):
             
             mask = group["true_shower_primary_id"] == particle_id
             ax.hist(group[gammaness][mask], **hist_opts, label=label)
-            ax.set_title('{:.3f} ≤ reco_energy < {:.3f}'.format(reco_energy_bins[idx], reco_energy_bins[idx + 1]))
+
+            e_min = reco_energy_bins[idx]
+            e_max = reco_energy_bins[idx + 1]
+            if e_min < 1 * u.TeV:
+                e_min = e_min.to(u.GeV)
+            if e_max < 1 * u.TeV:
+                e_max = e_max.to(u.GeV)
+
+            label = r'{:.0f} $\leq \hat{{E}} < $ {:.0f}'.format(
+                e_min, e_max
+            )
+            ax.set_title(label)
                 
+    axs[-2].set_xlabel('gammaness')
     axs[-1].set_xlabel('gammaness')
     fig.savefig("build/plots/gammaness_energy.pdf")
-
 
 
 
@@ -98,7 +110,6 @@ def main():
     events = load_data()
     plot_gammaness(events)
     plot_gammaness_energy(events)
-    plt.show()
 
 
 

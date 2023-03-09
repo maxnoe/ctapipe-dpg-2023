@@ -42,8 +42,8 @@ def load_data():
     return events
 
 
-def plot_roc(events):
-    mask = np.isfinite(events[gammaness])
+def plot_energy_migration(events):
+    mask = np.isfinite(events[reco_energy])
 
     fpr, tpr, threshold = roc_curve(
         events['true_shower_primary_id'][mask],
@@ -57,65 +57,34 @@ def plot_roc(events):
 
     fig, ax = plt.subplots(layout="constrained")
 
-    plot = ax.scatter(
-        fpr, tpr,
-        c=threshold,
-        cmap='inferno',
-        vmin=0,
-        vmax=1,
-        s=5,
+    n_bins = 101
+    energy_bins = np.geomspace(10 * u.GeV, 100 * u.TeV, n_bins + 1)
+    *_, plot = ax.hist2d(
+        events["true_energy"][mask].quantity.to_value(u.GeV),
+        events[reco_energy][mask].quantity.to_value(u.GeV),
+        bins=[
+            energy_bins.to_value(u.GeV),
+            energy_bins.to_value(u.GeV),
+        ]
     )
+    plot.set_rasterized(True)
+    fig.colorbar(plot, ax=ax, label="Number of Events")
 
-    fig.colorbar(plot, ax=ax, label="gammaness threshold")
-
-    n_bins = 4
-    reco_energy_bins = np.geomspace(10 * u.GeV, 100 * u.TeV, n_bins + 1)
-    grouped = events[mask].group_by(np.digitize(events[mask][reco_energy], reco_energy_bins))
-    
-    for idx, group in zip(grouped.groups.keys, grouped.groups):
-        # skip under / overflow
-        if idx == 0 or idx == (n_bins + 1):
-            continue
-
-        idx -= 1
-
-        fpr, tpr, threshold = roc_curve(
-            group['true_shower_primary_id'],
-            # sklearn computes confusion matrix for each possible cut
-            # much faster if rounded to 3 digits to reduce number of unique values
-            np.round(group['RandomForestClassifier_prediction'], 3),
-            pos_label=0,
-        )
-
-        e_min = reco_energy_bins[idx]
-        e_max = reco_energy_bins[idx + 1]
-        if e_min < 1 * u.TeV:
-            e_min = e_min.to(u.GeV)
-        if e_max < 1 * u.TeV:
-            e_max = e_max.to(u.GeV)
-
-        label = r'{:.0f} $\leq \hat{{E}} < $ {:.0f}'.format(
-            e_min, e_max
-        )
-        ax.plot(fpr, tpr, label=label, color=str(0.3 + (idx + 1) * 0.7 / n_bins))
-
-    ax.legend(loc='lower right')
     ax.set(
-        title=f'ROC AUC: {roc_auc:.3f}',
         aspect=1,
-        xlim=(-0.01, 1.01),
-        ylim=(-0.01, 1.01),
-        xlabel="False Positive Rate",
-        ylabel="True Positive Rate",
+        xlabel=r"$E \mathrel{/} \unit{\GeV}$",
+        ylabel=r"$\hat{E} \mathrel{/} \unit{\GeV}$",
+        xscale='log',
+        yscale='log',
     )
 
-    fig.savefig("build/plots/roc.pdf", bbox_inches="tight")
+    fig.savefig("build/plots/energy_migration.pdf", bbox_inches="tight")
 
 
 
 def main():
     events = load_data()
-    plot_roc(events)
+    plot_energy_migration(events)
 
 
 

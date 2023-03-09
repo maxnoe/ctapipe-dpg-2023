@@ -1,5 +1,5 @@
 backend: pgf
-figure.figsize : 4.53, 2.7 # 5.78, 3.57 für scrartcl
+figure.figsize : 2.265, 2.7 # 5.78, 3.57 für scrartcl
 font.family : sans-serif
 font.size : 9 
 legend.fontsize : medium
@@ -16,7 +16,6 @@ patch.antialiased: True
 
 axes.linewidth: 1
 axes.labelsize: medium
-axes.titlesize: medium
 axes.axisbelow: True
 
 # dark mode
