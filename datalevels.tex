@@ -52,7 +52,7 @@
     \draw[step-arrow, color=gray] (R1.east) -- (DL0.west)  node [analysis-step, midway, below, text width=2cm] {Data Volume\\ Reduction};
     \draw[step-arrow] (DL0.east) -- (DL1Image.west)  node [analysis-step, midway, below, yshift=-0.15cm] {Pulse Extraction};
     \draw[step-arrow] (DL1Image.south east) to[out=315, in=45]  node [analysis-step, midway, right, xshift=0.2cm] {Image Cleaning} (DL1Clean.north east); 
-    \draw[step-arrow] (DL1Clean.south) to[bend left] node [analysis-step, midway, above, xshift=-0.7cm, yshift=0.3cm] {Parametrization} (DL1b.east);
+    \draw[step-arrow] (DL1Clean.south) to[bend left] node [analysis-step, midway, below, anchor=center, rotate=55, xshift=0cm, yshift=0.4cm] {Parametrization} (DL1b.east);
     \draw[step-arrow] (DL1b.110) -- (DL2.south east)  node [analysis-step, midway, left, yshift=-0.2cm] {Reconstruction};
 
 \end{tikzpicture}
