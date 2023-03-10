@@ -23,6 +23,7 @@
 
 % nice tables
 \usepackage{tabularray}
+\usepackage[outputdir=build]{minted}
 
 % colors
 \usepackage{xcolor}
@@ -84,6 +85,11 @@
       \includegraphics[width=\linewidth]{images/cta_south.jpg}
     \end{column}%
   \end{columns}
+  \medskip
+
+  \begin{center}
+    \textasciitilde 30\,PB / year of archived raw data | High Level Reconstructed Data Published after Proprietary Period
+  \end{center}
 \end{frame}
 
 \begin{frame}{ctapipe}
@@ -91,7 +97,6 @@
     \item Library and Tools for IACT event reconstruction
     \item Core library of the CTAO Data Processing and Preservation System (DPPS)
     \item Open, community-based development steered by CTAO maintainers
-    \item Plugin System for IO, existing plugins for multiple data formats
     \item \href{https://github.com/cta-observatory/ctapipe}{github.com/cta-observatory/ctapipe}
     \item Current release: \texttt{v0.18.0} – 2023-02-09
       \href{https://doi.org/10.5281/zenodo.3372210}{\includegraphics[height=2ex]{images/ctapipe_zenodo.pdf}}
@@ -106,6 +111,50 @@
 
 \begin{frame}
   \input{datalevels.tex}
+\end{frame}
+
+\begin{frame}{Release 0.18}
+  \begin{itemize}
+    \item New reconstruction methods based on sklearn
+      \begin{itemize}
+        \item Particle Classification (Gamma / Hadron)
+        \item Primary Energy
+        \item Disp-Method for direction reconstruction
+      \end{itemize}
+    \item CLI-Applications to train / apply models
+    \item Plugin system also for reconstruction methods
+  \end{itemize}
+
+  \bigskip
+  \begin{center}
+    \large
+    $\Rightarrow$ ctapipe now able to produce fully reconstructed DL2 event data
+  \end{center}
+\end{frame}
+
+\begin{frame}{Data Format}
+  \begin{itemize}
+    \item Plugin-System for input data
+    \item HDF5 for output, including rich metadata, compression, transformations
+    \item Utilities for bulk loading data into  \texttt{astropy.table.Table}s
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Standard Workflow DL0 → DL2}
+\end{frame}
+
+\begin{frame}{Public DL1 / DL2 Data Release}
+  \begin{itemize}
+    \item Newly released dataset on Zenodo
+    \item Simulated gamma-ray and proton events at DL1 (including images) and DL2 (only geometry) 
+    \item 50 GB (size limit of Zenodo)
+    \item ca.~ 500\,000 successfully reconstructed array events for each particle type
+    \item Well-suited for machine learning studies at all levels
+    \item Public, cite-able dataset: \href{https://doi.org/10.5281/zenodo.7298568}{\includegraphics[height=2ex]{./images/public_data_zenodo.pdf}}
+
+    \item Everything shown uses this dataset, full workflow / talk source available here: \\
+      \href{https://github.com/maxnoe/ctapipe-dpg-2023}{github.com/maxnoe/ctapipe-dpg-2023}
+  \end{itemize}
 \end{frame}
 
 \end{document}
