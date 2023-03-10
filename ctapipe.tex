@@ -1,0 +1,43 @@
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}
+  \tikzset{arrow/.style={-{Triangle Cap}, line width=10pt, shorten >= 5pt, shorten <= 5pt}}
+  \tikzset{lightbg/.style={fill=lightgray, rounded corners=0.5cm, inner sep=0.2cm}}
+
+  \node[] (ctapipe) at (0, 0) {\includegraphics[width=10cm]{logos/ctapipe_logo_square.png}};
+
+  \node[anchor=east, lightbg] (astropy) at (-8, 4.5) {\includegraphics[height=2cm]{logos/astropy.pdf}};
+  \node[anchor=north west, yshift=-0.5cm] (sklearn) at (astropy.south west) {\includegraphics[height=2cm]{logos/sklearn.pdf}};
+  \node[anchor=north west, yshift=-0.5cm] (numpy) at (sklearn.south west) {\includegraphics[height=2cm]{logos/numpy.pdf}};
+  \node[anchor=north west, yshift=-0.5cm, lightbg] (scipy) at (numpy.south west) {\includegraphics[height=2cm]{logos/scipy.png}};
+  \node[anchor=north west, yshift=-0.5cm] (pytables) at (scipy.south west) {\includegraphics[height=2cm]{logos/pytables.png}};
+  \node[anchor=north west, yshift=-0.5cm, lightbg] (matplotlib) at (pytables.south west) {\includegraphics[height=2cm]{logos/matplotlib.pdf}};
+
+  \draw[arrow, color=lightblue] (astropy.east) to[out=0, in=120] (120:5cm);
+  \draw[arrow, color=lightblue] (sklearn.east) to[out=0, in=150] (150:5cm);
+  \draw[arrow, color=lightblue] (numpy.east) to[out=0, in=170] (170:5cm);
+  \draw[arrow, color=lightblue] (scipy.east) to[out=0, in=190] (190:5cm);
+  \draw[arrow, color=lightblue] (pytables.east) to[out=0, in=200] (210:5cm);
+  \draw[arrow, color=lightblue] (matplotlib.east) to[out=0, in=200] (230:5cm);
+
+  \node[rectangle, fill=lightblue, minimum width=4.5cm, minimum height=4.5cm, text=white, anchor=north east, xshift=-0.25cm, yshift=-1cm, align=center, text width=4cm] (algos) at (ctapipe.south) {\Huge Algorithms\\\Huge \strut python, \strut numpy, \strut scipy};
+  \node[rectangle, fill=darkblue, minimum width=4.5cm, minimum height=4.5cm, text=white, anchor=north west, xshift=0.25cm, yshift=-1cm, align=center] (numba) at (ctapipe.south) {\Huge Algorithms\\\Large Jit Compiled using \\ \includegraphics[width=4cm]{logos/numba.pdf}};
+
+  \draw[{Triangle Cap}-{Triangle Cap}, color=darkblue, line width=10pt] (algos.north) to[out=90, in=245] (245:5cm);
+  \draw[{Triangle Cap}-{Triangle Cap}, color=darkblue, line width=10pt] (numba.north) to[out=90, in=295] (295:5cm);
+
+  \node[rectangle, fill=apps, minimum width=4.5cm, text width=4.5cm, minimum height=4.5cm, text=white, anchor=south west, yshift=0.25cm, xshift=1cm, align=center, font=\fontsize{32}{32}\selectfont] (tools) at (ctapipe.east) {pipeline\\tools};
+  % \node[rectangle, fill=apps, minimum width=4.5cm, text width=4.5cm, minimum height=4.5cm, text=white, anchor=north west, yshift=-0.25cm, xshift=1cm, align=center, font=\huge] (advanced) at (ctapipe.east) {advanced\\pipeline\\applications};
+  \node[anchor=north, yshift=-2.5cm, fill=apps] (jupyter) at (tools.south) {\includegraphics[width=4cm]{logos/jupyter.pdf}};
+
+  \draw[{Triangle Cap}-{Triangle Cap}, color=apps, line width=10pt] (tools.west) to[out=180, in=25] (25:5cm);
+  % \draw[{Triangle Cap}-{Triangle Cap}, color=apps, line width=10pt] (advanced.west) to[out=180, in=-25] (-25:5cm);
+  \draw[{Triangle Cap}-{Triangle Cap}, color=apps, line width=10pt] (jupyter.west) to[out=135, in=-45] (-45:5cm);
+
+  \node[anchor=west, color=red!60!yellow, font=\Huge, yshift=1cm, xshift=0.5cm, text width=4cm] (deploy) at (tools.north east) {CI, Release \& Deploy};
+  \node[anchor=north] (conda) at (deploy.south) {\includegraphics[width=4cm]{logos/conda.pdf}};
+  \node[anchor=north, yshift=-0.5cm] (forge) at (conda.south) {\includegraphics[width=4cm]{logos/conda-forge.png}};
+  \node[anchor=north, yshift=-0.5cm] (pypi) at (forge.south) {\includegraphics[width=4cm]{logos/pypi.pdf}};
+  \node[anchor=north, yshift=-0.5cm] (pytest) at (pypi.south) {\includegraphics[width=4cm]{logos/pytest.pdf}};
+  \node[anchor=north, yshift=-0.5cm] (github) at (pytest.south) {\includegraphics[width=4cm]{logos/github.pdf}};
+\end{tikzpicture}
+}
