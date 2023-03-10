@@ -48,7 +48,7 @@
 
 \title{ctapipe -- Prototype Open Event Reconstruction Pipeline for the Cherenkov Telescope Array}
 \author[M.~Linhoff]{\emph{Maximilian Linhoff}, Lukas Nickel, Noah Biederbeck for the CTA Consortium and Observatory}
-\institute[TU Dortmund]{Astroparticle Physics}
+\institute[TU Dortmund]{Astroparticle Physics, TU Dortmund University\\ Supported by the DFG (SFB 876 \& 1491) and the BMBF (ErUM Pro)}
 \titlegraphic{\includegraphics[height=0.4\textheight]{ctapipe-logo-dark.pdf}}
 
 
@@ -56,10 +56,43 @@
 
 \maketitle
 
-\begin{frame}{CTA}
+\begin{frame}{The Cherenkov Telescope Array Observatory}
+  \begin{columns}[onlytextwidth, c]%
+    \begin{column}{0.75\textwidth}%
+      \includegraphics[width=\linewidth]{images/cta_north.jpg}
+    \end{column}%
+    \hfill%
+    \begin{column}{0.24\textwidth}%
+      CTA North (ORM, La Palma) \\
+      4 LSTs, 9 MSTs (Alpha)\\
+      LST-1 observing since 2018
+    \end{column}%
+  \end{columns}
+  \medskip
+  \begin{columns}[onlytextwidth, c]%
+    \begin{column}{0.24\textwidth}%
+      CTA South (ORM, La Palma) \\
+      14 MSTs, 37 SSTs  (Alpha)\\
+    \end{column}%
+    \hfill%
+    \begin{column}{0.74\textwidth}%
+      \includegraphics[width=\linewidth]{images/cta_south.jpg}
+    \end{column}%
+  \end{columns}
 \end{frame}
 
 \begin{frame}{ctapipe}
+  \begin{itemize}
+    \item Library and Tools for IACT event reconstruction
+    \item Core library of the CTAO Data Processing and Preservation System (DPPS)
+    \item Open, community-based development steered by CTAO maintainers
+    \item Plugin System for IO, existing plugins for multiple data formats
+    \item \href{https://github.com/cta-observatory/ctapipe}{github.com/cta-observatory/ctapipe}
+    \item Current release: \texttt{v0.18.0} – 2023-02-09
+      \href{https://doi.org/10.5281/zenodo.3372210}{\includegraphics[height=2ex]{images/ctapipe_zenodo.pdf}}
+      \href{https://pypi.org/project/ctapipe}{\includegraphics[height=2ex]{images/ctapipe_pypi.pdf}}
+      \href{https://anaconda.org/conda-forge/ctapipe}{\includegraphics[height=2ex]{images/ctapipe_conda.pdf}}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
