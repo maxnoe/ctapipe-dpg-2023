@@ -16,6 +16,7 @@ patch.antialiased: True
 
 axes.linewidth: 1
 axes.labelsize: medium
+axes.titlesize: medium
 axes.axisbelow: True
 
 # dark mode
@@ -25,7 +26,7 @@ patch.edgecolor: white
 
 text.color: white
 
-axes.facecolor: 3a3d41
+axes.facecolor: 222326
 axes.edgecolor: white
 axes.labelcolor: white
 axes.prop_cycle: cycler('color', ['8dd3c7', 'feffb3', 'bfbbd9', 'fa8174', '81b1d2', 'fdb462', 'b3de69', 'bc82bd', 'ccebc4', 'ffed6f'])
@@ -35,11 +36,10 @@ ytick.color: white
 
 grid.color: white
 
-figure.facecolor: 3a3d41
-figure.edgecolor: 3a3d41
-
-savefig.facecolor: 3a3d41
-savefig.edgecolor: 3a3d41
+figure.facecolor: 222326
+figure.edgecolor: 222326
+figure.dpi: 300
+savefig.transparent: True
 
 ### Boxplots
 boxplot.boxprops.color: white
