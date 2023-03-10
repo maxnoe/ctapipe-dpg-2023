@@ -5,8 +5,13 @@
 # Configuration for training machine-learning models
 # ======================================================================
 TrainParticleClassifier:
-  n_signal: 145000
-  n_background: 145000
+  n_signal:
+    - ["type", "LST*", 145000]
+    - ["type", "MST*", 300000]
+
+  n_backround:
+    - ["type", "LST*", 145000]
+    - ["type", "MST*", 300000]
 
   CrossValidator:
     n_cross_validations: 5

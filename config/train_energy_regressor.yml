@@ -9,7 +9,9 @@ TrainEnergyRegressor:
   CrossValidator:
     n_cross_validations: 5
 
-  n_events: 150000
+  n_events:
+    - ["type", "LST*", 150000]
+    - ["type", "MST*", 300000]
 
   EnergyRegressor:
     model_cls: RandomForestRegressor
