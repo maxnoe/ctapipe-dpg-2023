@@ -42,7 +42,7 @@ def load_data():
 
 
 def plot_energy_migration(events):
-    mask = np.isfinite(events[reco_energy])
+    mask = np.isfinite(events[reco_energy]) & (events[gammaness] > 0.6)
 
     fig, ax = plt.subplots(layout="constrained")
 
@@ -67,7 +67,7 @@ def plot_energy_migration(events):
         yscale='log',
     )
 
-    fig.savefig("build/plots/energy_migration.pdf", bbox_inches="tight")
+    fig.savefig("build/plots/energy_migration_gammaness.pdf", bbox_inches="tight")
 
 
 

@@ -25,13 +25,19 @@ plots: build/r0.pdf \
 	build/r1.pdf \
 	build/dl0.pdf \
 	build/dl1a.pdf \
-	build/dl1a_clean.pdf
+	build/dl1a_clean.pdf \
+	build/plots/roc.pdf \
+	build/plots/gammaness_energy.pdf \
+	build/plots/energy_migration.pdf
 
 build/dpg2023_ctapipe_T88_6_T729.pdf: plots
 build/dpg2023_ctapipe_T88_6_T729.pdf: FORCE
 	TEXINPUTS=tudobeamertheme: latexmk dpg2023_ctapipe_T88_6_T729.tex
 
 
+build/plots/roc.pdf: build/gamma_test.dl2.h5 build/proton_test.dl2.h5
+build/plots/gammaness_energy.pdf: build/gamma_test.dl2.h5
+build/plots/energy_migration.pdf: build/gamma_test.dl2.h5
 
 ${INDIR}/%.dl2.h5 : | ${INDIR}
 	curl -fLo $@ ${URL}/$*.dl2.h5?download=1

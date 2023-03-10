@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-import numpy as np
 import astropy.units as u
 from astropy.coordinates.angle_utilities import angular_separation
 from ctapipe.io import TableLoader
@@ -17,7 +15,7 @@ opts = dict(load_dl2=True, load_simulated=True, load_dl1_parameters=False)
 gamma_path = "./build/gamma_test.dl2.h5"
 proton_path = "./build/proton_test.dl2.h5"
 
-particle_ids = {"Gammas": 0, "Proton": 101}
+particle_ids = {"Protons": 101, "Gammas": 0}
 
 
 def load_data():
@@ -41,41 +39,4 @@ def load_data():
     return events
 
 
-def plot_energy_migration(events):
-    mask = np.isfinite(events[reco_energy])
 
-    fig, ax = plt.subplots(layout="constrained")
-
-    n_bins = 101
-    energy_bins = np.geomspace(10 * u.GeV, 100 * u.TeV, n_bins + 1)
-    *_, plot = ax.hist2d(
-        events["true_energy"][mask].quantity.to_value(u.GeV),
-        events[reco_energy][mask].quantity.to_value(u.GeV),
-        bins=[
-            energy_bins.to_value(u.GeV),
-            energy_bins.to_value(u.GeV),
-        ]
-    )
-    plot.set_rasterized(True)
-    fig.colorbar(plot, ax=ax, label="Number of Events")
-
-    ax.set(
-        aspect=1,
-        xlabel=r"$E \mathrel{/} \unit{\GeV}$",
-        ylabel=r"$\hat{E} \mathrel{/} \unit{\GeV}$",
-        xscale='log',
-        yscale='log',
-    )
-
-    fig.savefig("build/plots/energy_migration.pdf", bbox_inches="tight")
-
-
-
-def main():
-    events = load_data()
-    plot_energy_migration(events)
-
-
-
-if __name__ == "__main__":
-    main()
