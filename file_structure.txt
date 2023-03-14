@@ -1,0 +1,41 @@
+dataset /configuration/instrument/subarray/layout
+dataset /configuration/instrument/telescope/camera/geometry_0
+dataset /configuration/instrument/telescope/camera/geometry_1
+dataset /configuration/instrument/telescope/camera/readout_0
+dataset /configuration/instrument/telescope/camera/readout_1
+dataset /configuration/instrument/telescope/optics
+dataset /configuration/observation/observation_block
+dataset /configuration/observation/scheduling_block
+dataset /configuration/simulation/run
+dataset /dl1/event/subarray/trigger
+dataset /dl1/event/telescope/trigger
+dataset /dl1/event/telescope/parameters/tel_001
+dataset /dl1/event/telescope/parameters/tel_002
+...
+group   /dl1/monitoring
+dataset /dl1/monitoring/subarray/pointing
+dataset /dl1/monitoring/telescope/pointing/tel_001
+dataset /dl1/monitoring/telescope/pointing/tel_002
+...
+dataset /dl2/event/subarray/classification/RandomForestClassifier
+dataset /dl2/event/subarray/energy/RandomForestRegressor
+dataset /dl2/event/subarray/geometry/HillasReconstructor
+dataset /dl2/event/telescope/classification/RandomForestClassifier/tel_001
+dataset /dl2/event/telescope/classification/RandomForestClassifier/tel_002
+...
+dataset /dl2/event/telescope/energy/RandomForestRegressor/tel_001
+dataset /dl2/event/telescope/energy/RandomForestRegressor/tel_002
+...
+dataset /dl2/event/telescope/impact/HillasReconstructor/tel_001
+dataset /dl2/event/telescope/impact/HillasReconstructor/tel_002
+...
+dataset /simulation/event/telescope/images/tel_001
+dataset /simulation/event/telescope/images/tel_002
+...
+dataset /simulation/event/telescope/impact/tel_001
+dataset /simulation/event/telescope/impact/tel_002
+...
+dataset /simulation/event/telescope/parameters/tel_001
+dataset /simulation/event/telescope/parameters/tel_002
+...
+dataset /simulation/service/shower_distribution

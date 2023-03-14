@@ -1,0 +1,67 @@
+\vspace{0.5cm}
+\begin{tikzpicture}
+  \newcommand\file[1]{\faIcon{file}\,\texttt{#1}}
+  \tikzset{arrow/.style={-{Triangle Cap}, line width=3pt, shorten >= 2pt, shorten <= 2pt}}
+  \tikzset{tool/.style={color=tugreen, font=\ttfamily}}
+
+
+
+  \node[anchor=north west, text width=3cm] (gamma-train-en) at (0, 0) {\file{gamma-train-en}};
+  \node[anchor=west, xshift=0.5cm, tool] (train-energy) at (gamma-train-en.east) {train-energy-regressor};
+  \node[anchor=north, yshift=-0.5cm] (energy-model) at (train-energy.south) {\file{energy model}};
+  \node[anchor=west, xshift=0.5cm, tool] (train-energy) at (gamma-train-en.east) {train-energy-regressor};
+
+  \node[anchor=north, yshift=-0.5cm, tool] (apply-gamma-train) at (energy-model.south) {apply-models};
+  \node[anchor=east, text width=3cm, xshift=-0.5cm] (gamma-train-clf) at (apply-gamma-train.west) {\file{gamma-train-clf}};
+  \node[anchor=west, xshift=0.5cm] (gamma-train-clf-tmp) at (apply-gamma-train.east) {\file{}};
+
+  \node[anchor=north west, text width=3cm] (proton-train-clf) at (gamma-train-clf.south west) {\file{proton-train-clf}};
+
+  \node[anchor=west, xshift=0.5cm, tool] (apply-proton-train) at (proton-train-clf.east) {apply-models};
+  \node[anchor=west, xshift=0.5cm] (proton-train-clf-tmp) at (apply-proton-train.east) {\file{}};
+
+
+  \draw[arrow] (gamma-train-en.east) to (train-energy.west);
+  \draw[arrow] (train-energy.south) to (energy-model.north);
+
+
+  \draw[arrow] (energy-model.south) to (apply-gamma-train.north);
+  \draw[arrow] (apply-gamma-train.east) to (gamma-train-clf-tmp.west);
+  \draw[arrow] (gamma-train-clf.east) to (apply-gamma-train.west);
+  \draw[arrow] (apply-proton-train.east) to (proton-train-clf-tmp.west);
+  \draw[arrow] (proton-train-clf.east) to (apply-proton-train.west);
+
+  \node[anchor=west, xshift=0.5cm, tool] (train-classifier) at (gamma-train-clf-tmp.south east) {train-particle-classifier};
+  \draw[arrow] (gamma-train-clf-tmp.east) to[bend left] (train-classifier.west);
+  \draw[arrow] (proton-train-clf-tmp.east) to[bend right] (train-classifier.west);
+
+  \node[anchor=north, yshift=-0.5cm] (classifier) at (train-classifier.south) {\file{particle classification model}};
+  \draw[arrow] (train-classifier.south) to (classifier.north);
+
+  \node[anchor=north, yshift=-0.5cm, tool] (apply-gamma-eval) at (classifier.south) {apply-models};
+  \draw[arrow] (classifier.south) to (apply-gamma-eval.north);
+
+  \node[anchor=east, text width=2.5cm, xshift=-0.5cm] (gamma-eval) at (apply-gamma-eval.west) {\file{gamma-eval}};
+  \draw[arrow] (gamma-eval.east) to (apply-gamma-eval.west);
+
+  \node[anchor=north west, text width=2.5cm] (proton-eval) at (gamma-eval.south west) {\file{proton-eval}};
+  \node[anchor=west, xshift=0.5cm, tool] (apply-proton-eval) at (proton-eval.east) {apply-models};
+  \draw[arrow] (proton-eval.east) to (apply-proton-eval.west);
+
+  % \node[anchor=north west, text width=2.5cm] (electron-eval) at (proton-eval.south west) {\file{electron-eval}};
+  % \node[anchor=west, xshift=0.5cm, tool] (apply-electron-eval) at (electron-eval.east) {apply-models};
+  % \draw[arrow] (electron-eval.east) to (apply-electron-eval.west);
+
+  \node[anchor=west, xshift=0.5cm] (gamma-final) at (apply-gamma-eval.east) {\file{gamma-eval}};
+  \draw[arrow] (apply-gamma-eval) to (gamma-final);
+
+  \node[anchor=west, xshift=0.5cm] (proton-final) at (apply-proton-eval.east) {\file{proton-eval}};
+  \draw[arrow] (apply-proton-eval) to (proton-final);
+
+  \node[anchor=north, yshift=-0.5cm] (energy-model) at (apply-proton-eval.south) {\file{energy model}};
+  \draw[arrow] (energy-model) to (apply-proton-eval);
+
+  % \node[anchor=west, xshift=0.5cm] (electron-final) at (apply-electron-eval.east) {\file{electron eval}};
+  % \draw[arrow] (apply-electron-eval) to (electron-final);
+
+\end{tikzpicture}

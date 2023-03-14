@@ -21,6 +21,8 @@
   per-mode=symbol-or-fraction,
 ]{siunitx}
 
+\usepackage{fontawesome5}
+
 % nice tables
 \usepackage{tabularray}
 \usepackage[outputdir=build]{minted}
@@ -109,7 +111,8 @@
   \input{ctapipe.tex}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Data Levels and Processing Steps}
+  \vspace{-0.5cm}%
   \input{datalevels.tex}
 \end{frame}
 
@@ -133,15 +136,21 @@
 \end{frame}
 
 \begin{frame}{Data Format}
-  \begin{itemize}
-    \item Plugin-System for input data
-    \item HDF5 for output, including rich metadata, compression, transformations
-    \item Utilities for bulk loading data into  \texttt{astropy.table.Table}s
-  \end{itemize}
+  \begin{columns}[c, onlytextwidth]
+    \begin{column}{0.4\textwidth}
+      \begin{itemize}
+        \item Plugin-System for input data
+        \item HDF5 for output, including rich metadata, compression, transformations
+        \item Utilities for bulk loading data into  \texttt{astropy.table.Table}s
+      \end{itemize}
+    \end{column}%
+    \hfill%
+    \begin{column}{0.59\textwidth}%
+      \includegraphics[width=\linewidth]{./images/ctapipe_hdf5.png}
+    \end{column}%
+  \end{columns}
 \end{frame}
 
-\begin{frame}{Standard Workflow DL0 → DL2}
-\end{frame}
 
 \begin{frame}{Public DL1 / DL2 Data Release}
   \begin{itemize}
@@ -158,35 +167,78 @@
 \end{frame}
 
 \begin{frame}{New Machine Learning Reconstruction}
-  \footnotesize
+  \begin{itemize}
+    \item Based on scikit-learn
+    \item Very flexible thanks to integration with the ctapipe
+    \item Procedure (as of 0.18.0):
+      \begin{itemize}
+        \item Training of models per telescope type
+        \item Weighted average of telescope-wise predictions for final array event prediction\\
+          See Lukas Beiske's talk for a nested model approach (AKPIK 2.8) 
+      \end{itemize}
+    \item Models for
+      \begin{itemize}
+        \item Energy (1D Regression)
+        \item Particle Classification (Binary Classification)
+        \item Direction reconstruction using the disp method (1D Regression + Binary Classification)
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Standard Workflow DL0 → DL2}
+  \input{workflow1.tex}
+
+  \bigskip
+  \begin{itemize}
+    \item Process many simulation runs in parallel to DL1 plus DL2 geometry
+    \item Merge into large datasets
+    \item DL1 step also includes selection of a specific CTAO array from the simulated super-array
+  \end{itemize}
+\end{frame}
+\begin{frame}{Standard Workflow DL0 → DL2}
+  \input{workflow2.tex}
 \end{frame}
 
 \begin{frame}{Example yaml configuration}
   \footnotesize
   \begin{columns}[t, onlytextwidth]
     \begin{column}{0.495\textwidth}
-      \inputminted[firstline=8, lastline=28]{yaml}{./config/train_energy_regressor.yml}
+      \inputminted[firstline=8, lastline=30]{yaml}{./config/train_energy_regressor.yml}
     \end{column}%
     \hfill%
     \begin{column}{0.495\textwidth}%
-      \inputminted[firstline=30, lastline=50]{yaml}{./config/train_energy_regressor.yml}
+      \inputminted[firstline=31, lastline=50]{yaml}{./config/train_energy_regressor.yml}
       \hspace{4em}\texttt{...}
     \end{column}%
   \end{columns}
 \end{frame}
 
-\begin{frame}
-  \includegraphics{./build/plots/energy_migration.pdf}
-\end{frame}
-\begin{frame}
-  \includegraphics{./build/plots/energy_migration_gammaness.pdf}
+\begin{frame}[c]
+  \centering
+  % \begin{columns}[c, onlytextwidth]
+  %   \begin{column}{0.7\textwidth}
+  %     \only<1>{%
+        \includegraphics{./build/plots/energy_migration.pdf}
+      % }%
+      % \only<2>{%
+      %   \includegraphics{./build/plots/energy_migration_gammaness.pdf}
+      % }%
+    % \end{column}%
+    % \hfill%
+    % \begin{column}{0.295\textwidth}%
+    %   % Energy Migration\\
+    %   % \onslide<2>{for \texttt{gammaness} > 0.5}
+    % \end{column}
+  % \end{columns}
 \end{frame}
 
-\begin{frame}
-  \includegraphics{./build/plots/gammaness_energy.pdf}
-\end{frame}
+% \begin{frame}[c]
+%   \centering
+%   \includegraphics{./build/plots/gammaness_energy.pdf}
+% \end{frame}
 
-\begin{frame}
+\begin{frame}[c]
+  \centering
   \includegraphics{./build/plots/roc.pdf}
 \end{frame}
 
@@ -195,13 +247,14 @@
     \item With ctapipe 0.18, fully reconstructed DL2 events possible
     \item Classical machine learning using sklearn
     \item Plugin system for other reconstrucion methods (deep learning, likelihood, etc.)
+    \item Public data release on Zenodo
+    \item New proposal process for large changes to ctapipe
     \item Next steps
       \begin{itemize}
         \item Computation of Instrument Response Functions (using pyirf)
         \item Categorization of events into different event types
         \item Towards analysis of observed data: monitoring / calibration / service
       \end{itemize}
-    \item New proposal process for large changes to ctapipe
   \end{itemize}
 \end{frame}
 

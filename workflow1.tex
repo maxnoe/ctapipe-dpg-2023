@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+  \newcommand\file[1]{\faIcon{file}\,\texttt{#1}}
+  \tikzset{arrow/.style={-{Triangle Cap}, line width=3pt, shorten >= 2pt, shorten <= 2pt}}
+  \tikzset{tool/.style={color=tugreen, font=\ttfamily}}
+
+  \node[anchor=north west] (gamma1) at (0, 0) {\file{sim. run 1}};
+  \node[anchor=north west] (gamma2) at (gamma1.south west) {\file{sim. run 2}};
+  \node[anchor=north west] (gamma3) at (gamma2.south west) {\file{sim. run 3}};
+
+  \node[anchor=west, xshift=0.5cm, tool] (process1) at (gamma1.east) {process};
+  \node[anchor=west, xshift=0.5cm, tool] (process2) at (gamma2.east) {process};
+  \node[anchor=west, xshift=0.5cm, tool] (process3) at (gamma3.east) {process};
+
+  \node[anchor=west, xshift=0.5cm] (gamma-dl1-1) at (process1.east) {\file{run 1 dl1/dl2}};
+  \node[anchor=west, xshift=0.5cm] (gamma-dl1-2) at (process2.east) {\file{run 2 dl1/dl2}};
+  \node[anchor=west, xshift=0.5cm] (gamma-dl1-3) at (process3.east) {\file{run 3 dl1/dl2}};
+
+  \draw[arrow] (gamma1.east) to (process1.west);
+  \draw[arrow] (gamma2.east) to (process2.west);
+  \draw[arrow] (gamma3.east) to (process3.west);
+  \draw[arrow] (process1.east) to (gamma-dl1-1.west);
+  \draw[arrow] (process2.east) to (gamma-dl1-2.west);
+  \draw[arrow] (process3.east) to (gamma-dl1-3.west);
+
+  \node[anchor=west, xshift=0.5cm, tool] (merge1) at (gamma-dl1-2.east) {merge};
+  \node[anchor=west, xshift=0.5cm] (merge1-out) at (merge1.east) {\file{merged dl1/dl2 dataset}};
+
+  \draw[arrow] (gamma-dl1-1.east) to[bend left] (merge1.west);
+  \draw[arrow] (gamma-dl1-2.east) to (merge1.west);
+  \draw[arrow] (gamma-dl1-3.east) to[bend right] (merge1.west);
+  \draw[arrow] (merge1.east) to (merge1-out.west);
+\end{tikzpicture}
+

@@ -54,7 +54,8 @@ def plot_energy_migration(events):
         bins=[
             energy_bins.to_value(u.GeV),
             energy_bins.to_value(u.GeV),
-        ]
+        ],
+        vmax=700,
     )
     plot.set_rasterized(True)
     fig.colorbar(plot, ax=ax, label="Number of Events")

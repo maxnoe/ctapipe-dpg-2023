@@ -28,12 +28,15 @@ plots: build/r0.pdf \
 	build/dl1a_clean.pdf \
 	build/plots/roc.pdf \
 	build/plots/gammaness_energy.pdf \
-	build/plots/energy_migration.pdf
+	build/plots/energy_migration.pdf \
+	build/plots/energy_migration_gammaness.pdf
 
 build/dpg2023_ctapipe_T88_6_T729.pdf: plots
 build/dpg2023_ctapipe_T88_6_T729.pdf: FORCE
 	TEXINPUTS=tudobeamertheme: latexmk dpg2023_ctapipe_T88_6_T729.tex
 
+preview: FORCE
+	TEXINPUTS=tudobeamertheme: latexmk -pvc dpg2023_ctapipe_T88_6_T729.tex
 
 build/plots/roc.pdf: build/gamma_test.dl2.h5 build/proton_test.dl2.h5
 build/plots/gammaness_energy.pdf: build/gamma_test.dl2.h5
@@ -191,5 +194,5 @@ clean:
 
 FORCE:
 
-.PHONY: all clean FORCE
+.PHONY: all clean FORCE preview
 .DELETE_ON_ERROR:

@@ -9,7 +9,7 @@ TrainParticleClassifier:
     - ["type", "LST*", 145000]
     - ["type", "MST*", 300000]
 
-  n_backround:
+  n_background:
     - ["type", "LST*", 145000]
     - ["type", "MST*", 300000]
 
